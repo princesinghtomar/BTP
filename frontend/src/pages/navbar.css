@@ -1,0 +1,26 @@
+#navbar {
+    overflow: hidden;
+    background-color:rgba(0,255,255,0);
+    position: sticky;
+  }
+  
+  #navbar a {
+    float: left;
+    display: block;
+    color: #1a4922;
+    align-content: center;
+    padding: 8px 10px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  #navbar a:hover {
+    background-color: rgba(0,0,255,0.4);
+    color: black;
+  }
+  
+  #navbar a.active {
+    background-color: rgba(38, 236, 31, 0.5);
+    color: rgb(255, 255, 255);
+  }
+  
