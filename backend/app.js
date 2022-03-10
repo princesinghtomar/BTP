@@ -7,6 +7,7 @@ const express = require('express'),
 
 const indexRouter = require('./routes/index'),
     usersRouter = require('./routes/users');
+// const audioRouter = require('./routes/audios');
 const app = express();
 
 app.use(helmet());
@@ -18,5 +19,6 @@ app.use(cookieParser());
 
 app.use('/', indexRouter);
 app.use('/api/user', usersRouter);
+// app.use('/api/audios', audioRouter);
 
 module.exports = app;

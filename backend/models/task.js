@@ -3,10 +3,6 @@ var mongoose = require('mongoose'),
 
 const todoSchema = new Schema({
   task: String,
-  username: {
-    type: String,
-    required: true,
-  },
   email: {
     type: String,
     required: true,

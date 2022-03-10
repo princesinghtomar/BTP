@@ -18,7 +18,6 @@ class RegisterPage extends Component {
         this.state = {
             name: "",
             email: "",
-            username: "",
             password: "",
             redirect: false,
             validated: false
@@ -54,9 +53,8 @@ class RegisterPage extends Component {
                 url: `http://localhost:3000/api/user/register`,
                 data: {
                     name: this.state.name,
-                    email: this.state.email,
                     password: this.state.password,
-                    username: this.state.username
+                    email: this.state.email
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -103,15 +101,6 @@ class RegisterPage extends Component {
                                             name="email" 
                                             placeholder="Enter email" 
                                             value={this.state.email} 
-                                            onChange={(e) => this.handleChange(e)}
-                                            required
-                                            ></Form.Control>
-                                        <Form.Label>Username</Form.Label>
-                                        <Form.Control 
-                                            type="text" 
-                                            name="username" 
-                                            placeholder="Enter username" 
-                                            value={this.state.username} 
                                             onChange={(e) => this.handleChange(e)}
                                             required
                                             ></Form.Control>

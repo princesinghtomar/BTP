@@ -3,6 +3,7 @@ import "./navbar.css";
 import styles from "./tool.module.css";
 import MicRecorder from "mic-recorder-to-mp3";
 import UserContext from "../contexts/User/UserContext";
+import Axios from "axios";
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
@@ -61,8 +62,35 @@ class Main extends Component {
       .catch((e) => console.log(e));
   };
 
-  onSubmit = () => {
+  async onSubmit(){
     console.log("submitted");
+    // do this later
+    // try {
+    //   const response = await Axios({
+    //     method: "POST",
+    //     url: `http://localhost:3000/api/audios`,
+    //     data: {
+    //       inputtext: this.state.inputtext,
+    //       audioURL: this.state.blobURL,
+    //       audioData: require(this.state.blobURL),
+    //     },
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     withCredentials: true,
+    //   });
+    //   if (response.status === 200) {
+    //     console.log(response);
+    //     console.log("Data is sent successfully");
+    //   } else {
+    //     alert(
+    //       "Something has gone wrong. Please contact admin or refresh and try again."
+    //     );
+    //   }
+    // } catch (e) {
+    //   alert(e.message);
+    //   return;
+    // }
   };
 
   render() {
@@ -72,11 +100,13 @@ class Main extends Component {
           {(context) => (
             <div>
               <div id="navbar">
-                <a href="/">Home</a>
+                {<a href="/">Home</a>}
+                {<a href="/#/About">About</a>}
                 <a href="/" onClick={() => context.handleLogout()}>
                   Logout
                 </a>
                 <a class="active">Tool</a>
+                {<a href="/#/Contact">Contact</a>}
               </div>
               <div>
                 <br />

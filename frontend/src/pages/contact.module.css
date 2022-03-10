@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Division */
+
+.iiitimagdiv {
+  text-align: center;
+  margin: auto;
+}
+
+/* Horizontal Line */
+.hr:before,
+.hr:after {
+  content: "";
+  background: #fed279;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 0.1rem solid #3f7963;
+  position: absolute;
+  bottom: 0;
+  transform: rotate(45deg) translatey(calc(50% + 0.2rem));
+  transform-origin: center;
+  left: calc(5% + 1.1rem);
+  z-index: 2;
+}
+.hr:before {
+  left: 0;
+}
+.hr:after {
+  left: auto;
+  right: -1.1rem;
+}
+.hr {
+  width: 90%;
+  position: absolute;
+  left: 5%;
+  /* bottom: 0; */
+  background: #3f7963;
+  height: 0.1rem;
+}
+
+/* Image */
+.imagestyle {
+  height: 16rem;
+  width: 34rem;
+  background: white;
+  border: 0;
+  margin: -0.2rem;
+}
+
+/* Table */
+.table_name {
+  margin-left: auto;
+  margin-right: auto;
+  align-content: center;
+}
+
+.tr {
+  font-size: medium;
+  padding: 1rem;
+  /* border: 1px solid purple; */
+}
+
+.td {
+  padding: 1rem;
+}
+
+.listbullets {
+  color: rgb(107, 236, 107);
+}
+
+.texta {
+    color: #3f7963;
+}

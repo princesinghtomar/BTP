@@ -9,7 +9,7 @@
   align-self: center;
   text-align: left;
   width: 85%;
-  border: 0.5rem solid green;
+  border: 0.2rem solid green;
   padding: 2rem;
   margin: auto;
 }
@@ -39,7 +39,7 @@
   align-self: center;
   background-color: lightgrey;
   width: 85%;
-  border: 0.5rem solid green;
+  border: 0.2rem solid green;
   padding: 2rem;
   margin: auto;
 }

@@ -7,6 +7,8 @@ import Tool from './pages/tool';
 import NotFoundPage from './pages/NotFoundPage';
 import RegisterPage from './pages/RegisterPage';
 import About from './pages/About'
+import Contact from './pages/contact'
+import TAbout from './pages/TAbout'
 
 class App extends Component {
     constructor(props) {
@@ -23,6 +25,8 @@ class App extends Component {
                             <Route exact path="/Login" render={() => <LoginPage />}></Route>
                             <Route exact path="/register" render={() => <RegisterPage />}></Route>
                             <Route exact path="/tool" render={() => <Tool />}></Route>
+                            <Route exact path="/contact" render={() => <Contact />}></Route>
+                            <Route exact path="/about" render={() => <TAbout />}></Route>
                             <Route path="*" render={() => <NotFoundPage />}></Route>
                         </Switch>
                     </UserProvider>

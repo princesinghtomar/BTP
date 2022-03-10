@@ -12,12 +12,12 @@ class About extends Component {
                     <div>
                         <div id="navbar">
                             <a class="active">Home</a>
+                            <a href="/#/About">About</a>
                             {!context.name && <a href="/#/Login">LogIn</a>}
                             {!context.name && <a href="/#/register">Register</a>}
                             {context.name && <a href="javascript:window.location.reload(true)" onClick={() => context.handleLogout()}>Logout</a>}
-                            {/* <a href="#" target="_blank" rel="noopener noreferrer">Github</a> */}
-                            {context.name && <a href="/#/Tool">tool</a>}
-                            {/* {context.name && <p>Welcome, {context.name}</p>} */}
+                            {context.name && <a href="/#/Tool">Tool</a>}
+                            <a href="/#/Contact">Contact</a>
                         </div>
                         <div className={styles.about_main_div}>
                             <div>
