@@ -1,14 +1,120 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap");
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.inputtextfielddiv {
+  align-self: center;
+  text-align: left;
+  width: 85%;
+  border: 0.5rem solid green;
+  padding: 2rem;
+  margin: auto;
+}
+
+.inputtextfield {
+  width: 100%;
+  height: 100%;
+}
+
+.recoderfielddiv {
+  align-self: center;
+  text-align: center;
+  width: 85%;
+  padding: 2rem;
+  margin: auto;
+}
+
+.audiofielddiv {
+  align-self: center;
+  text-align: center;
+  width: 85%;
+  padding: 2rem;
+  margin: auto;
 }
 
 .outdivision {
-    background-color: lightgrey;
-    width: 300px;
-    border: 15px solid green;
-    padding: 50px;
-    margin: 20px;
+  align-self: center;
+  background-color: lightgrey;
+  width: 85%;
+  border: 0.5rem solid green;
+  padding: 2rem;
+  margin: auto;
+}
+
+.hr:before,
+.hr:after {
+  content: "";
+  background: #fed279;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 0.1rem solid #3f7963;
+  position: absolute;
+  bottom: 0;
+  transform: rotate(45deg) translatey(calc(50% + 0.2rem));
+  transform-origin: center;
+  left: calc(5% + 1.1rem);
+  z-index: 2;
+}
+.hr:before {
+  left: 0;
+}
+.hr:after {
+  left: auto;
+  right: -1.1rem;
+}
+.hr {
+  width: 90%;
+  position: absolute;
+  left: 5%;
+  /* bottom: 0; */
+  background: #3f7963;
+  height: 0.1rem;
+}
+
+.imagestyle {
+  height: 8rem;
+  width: 8rem;
+  background: white;
+  border: 0;
+  margin: -0.2rem;
+}
+
+.submitbuttndiv {
+  text-align: right;
+  width: 100%;
+  padding: 1rem;
+  margin: auto;
+}
+
+.submitbuttnstyle {
+  align-self: center;
+  font-size: 1.8rem;
+  font-weight: 200;
+  letter-spacing: 0.1rem;
+  padding: 1.1rem 4rem 1.1rem;
+  outline: 0;
+  border: 0.1rem solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.submitbuttnstyle::after {
+  content: "";
+  background-color: #baf7ff;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 0.7rem;
+  left: 0.7rem;
+  transition: 0.3s;
+}
+
+.submitbuttnstyle:hover::after {
+  top: 0px;
+  left: 0px;
 }

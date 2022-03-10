@@ -17,6 +17,7 @@ class RegisterPage extends Component {
         super(props);
         this.state = {
             name: "",
+            email: "",
             username: "",
             password: "",
             redirect: false,
@@ -50,9 +51,10 @@ class RegisterPage extends Component {
         try {
             const response = await Axios({
                 method: 'POST',
-                url: `http://localhost:3000/api/user/register/`,
+                url: `http://localhost:3000/api/user/register`,
                 data: {
                     name: this.state.name,
+                    email: this.state.email,
                     password: this.state.password,
                     username: this.state.username
                 },
@@ -92,6 +94,15 @@ class RegisterPage extends Component {
                                             name="name" 
                                             placeholder="Enter name" 
                                             value={this.state.name} 
+                                            onChange={(e) => this.handleChange(e)}
+                                            required
+                                            ></Form.Control>
+                                        <Form.Label>Email</Form.Label>
+                                        <Form.Control 
+                                            type="email" 
+                                            name="email" 
+                                            placeholder="Enter email" 
+                                            value={this.state.email} 
                                             onChange={(e) => this.handleChange(e)}
                                             required
                                             ></Form.Control>

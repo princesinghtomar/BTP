@@ -1,53 +1,34 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import "./navbar.css";
 import styles from "./tool.module.css";
-import AudioReactRecorder, { RecordState } from "audio-react-recorder";
-// import ReactPlayer from 'react-player'
-import ReactAudioPlayer from "react-audio-player"; 
-
+import MicRecorder from "mic-recorder-to-mp3";
 import UserContext from "../contexts/User/UserContext";
+
+const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recordState: null,
-      recordsound: true,
-      soundData: null,
+      micstatus: false,
+      isRecording: false,
+      blobURL: "",
+      isBlocked: false,
+      submitstate: false,
       inputtext: "",
-      outtext: "This is the Output Text Field of the Algorithm",
-      feedback: "YaY, You are Indian!!",
+      outtext: "Output Returned by the Algorithm is displayed here",
+      feedback: "Feedback Returned by the Algorithm is displayed here",
     };
   }
 
   handleChange(e) {
-    console.log("handlechange");
-    console.log(e);
+    let subst =
+      this.state.blobURL.length > 0 && this.state.inputtext.length > 3;
     this.setState({
-      [e.target.name]: e.target.value,
+      inputtext: e.target.value,
+      submitstate: subst,
     });
   }
-
-  start = () => {
-    this.setState({
-      recordState: RecordState.START,
-    });
-  };
-
-  stop = () => {
-    this.setState({
-      recordState: RecordState.STOP,
-    });
-  };
-
-  //audioData contains blob and blobUrl
-  onStop = (audioData) => {
-    this.setState({
-      soundData: audioData,
-    })
-    console.log("audioData", audioData);
-  };
 
   setInputText = (enteredtext) => {
     this.setState({
@@ -55,9 +36,36 @@ class Main extends Component {
     });
   };
 
+  start = () => {
+    if (this.state.isBlocked) {
+      console.log("Permission Denied");
+    } else {
+      Mp3Recorder.start()
+        .then(() => {
+          this.setState({
+            isRecording: true,
+            micstatus: true,
+          });
+        })
+        .catch((e) => console.error(e));
+    }
+  };
+
+  stop = () => {
+    Mp3Recorder.stop()
+      .getMp3()
+      .then(([buffer, blob]) => {
+        const blobURL = URL.createObjectURL(blob);
+        this.setState({ blobURL, isRecording: false, micstatus: false });
+      })
+      .catch((e) => console.log(e));
+  };
+
+  onSubmit = () => {
+    console.log("submitted");
+  };
+
   render() {
-    const { recordState } = this.state;
-    // console.log(UserContext)
     return (
       <>
         <UserContext.Consumer>
@@ -71,39 +79,84 @@ class Main extends Component {
                 <a class="active">Tool</a>
               </div>
               <div>
+                <br />
                 <h1>
-                  <center>Tool :-)</center>
+                  <center>Automatic Intelligibility Detection</center>
                 </h1>
-              </div>
-              <div>
-                <label>Please Enter Correct Text of what you spoke :</label>
+                <hr className={styles.hr} />
                 <br />
-                <textarea
-                  rows="4"
-                  cols="50"
-                  name={this.state.inputtext}
-                  form="inform"
-                  onChange={(e) => this.handleChange(e)}
-                ></textarea>
-              </div>
-              <div>
-                <AudioReactRecorder state={recordState} onStop={this.onStop} />
-                <button onClick={this.start}>Start</button>
-                <button onClick={this.stop}>Stop</button>
-              </div>
-              <div>
-                  {this.state.soundData!=null && <ReactAudioPlayer src={this.state.soundData.url} controls />}
-              </div>
-              <div>
-                <label>Output Returned by the Algorithm :</label>
                 <br />
+              </div>
+              <div>
+                <div className={styles.inputtextfielddiv}>
+                  <label>Please Enter Correct Text of what you spoke :</label>
+                  <br />
+                  <textarea
+                    className={styles.inputtextfield}
+                    rows="4"
+                    cols="50"
+                    name={this.state.inputtext}
+                    form="inform"
+                    onChange={(e) => this.handleChange(e)}
+                  ></textarea>
+                  <div className={styles.submitbuttndiv}>
+                    {this.state.submitstate && (
+                      <button
+                        className={styles.submitbuttnstyle}
+                        onClick={this.onSubmit}
+                        disabled={!this.state.submitstate}
+                      >
+                        submit
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className={styles.recoderfielddiv}>
+                <br />
+                {(!this.state.micstatus && (
+                  <button
+                    onClick={this.start}
+                    disabled={this.state.isRecording}
+                  >
+                    <img
+                      className={styles.imagestyle}
+                      src={require("../icons/mon.png")}
+                      title="Turn mic on"
+                      alt="mic on"
+                    />
+                  </button>
+                )) ||
+                  (this.state.micstatus && (
+                    <button
+                      onClick={this.stop}
+                      disabled={!this.state.isRecording}
+                    >
+                      <img
+                        className={styles.imagestyle}
+                        src={require("../icons/moff.png")}
+                        title="Turn mic off"
+                        alt="mic off"
+                      />
+                    </button>
+                  ))}
+                <div className={styles.audiofielddiv}>
+                  {this.state.blobURL && (
+                    <audio src={this.state.blobURL} controls="controls" />
+                  )}
+                </div>
+              </div>
+              <div>
                 <div className={styles.outdivision}>{this.state.outtext}</div>
               </div>
+              <br />
               <div>
-                <label>Feedback Returned by the Algorithm :</label>
-                <br />
                 <div className={styles.outdivision}>{this.state.feedback}</div>
               </div>
+              <br />
+              <hr className={styles.hr} />
+              <br />
+              <br />
             </div>
           )}
         </UserContext.Consumer>

@@ -7,6 +7,10 @@ const todoSchema = new Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+  },
   done: Boolean
 });
 

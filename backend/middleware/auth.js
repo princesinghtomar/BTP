@@ -17,7 +17,8 @@ module.exports = {
                     res.status(401).send('Unauthorized: Invalid token');
                 } else {
                     req.name = decoded.name;
-                    req.username = decoded.name;
+                    req.username = decoded.username;
+                    req.email= decoded.email;
                     next();
                 }
             });
@@ -35,6 +36,7 @@ module.exports = {
             jwt.verify(token, config.JWT_SECRET, function (err, decoded) {
                 req.name = decoded.name;
                 req.username = decoded.username;
+                req.email = decoded.email;
                 next();
             });
         }

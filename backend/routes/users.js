@@ -14,6 +14,7 @@ router.post('/register', (req, res) => {
 	let newUser = new User();
 
 	newUser.name = req.body.name;
+	newUser.email = req.body.email;
 	newUser.username = req.body.username;
 	newUser.password = req.body.password;
 
@@ -41,7 +42,8 @@ router.post('/register', (req, res) => {
 /* POST User login */
 router.post('/login', (req, res) => {
 	User.findOne({
-		username: req.body.username
+		username: req.body.username,
+		email: req.body.email
 	}, (error, user) => {
 		if (error) res.status(500).json({
 			success: false,
@@ -61,7 +63,8 @@ router.post('/login', (req, res) => {
 						var token = jwt.sign({
 							id: user._id,
 							name: user.name,
-							username: user.username
+							username: user.username,
+							email: user.email
 						}, config.JWT_SECRET, { expiresIn: '1h' });
 						console.log(token)
 						res.cookie('token', token).sendStatus(200);

@@ -17,6 +17,7 @@ class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: "",
             username: "",
             password: "",
             redirect: false
@@ -56,6 +57,8 @@ class LoginPage extends Component {
                                     <Card.Header className="text-center">Login</Card.Header>
                                     <Card.Body>
                                         <Form>
+                                            <Form.Label>Email</Form.Label>
+                                            <Form.Control type='email' name="email" placeholder='Enter email' value={this.state.email} onChange={(e)=> this.handleChange(e)}></Form.Control>
                                             <Form.Label>Username</Form.Label>
                                             <Form.Control type="text" name="username" placeholder="Enter username" value={this.state.username} onChange={(e) => this.handleChange(e)}></Form.Control>
                                             <Form.Label>Password</Form.Label>
