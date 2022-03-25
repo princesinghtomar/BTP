@@ -3,7 +3,7 @@ import "./navbar.css";
 import styles from "./tool.module.css";
 import MicRecorder from "mic-recorder-to-mp3";
 import UserContext from "../contexts/User/UserContext";
-import Axios from "axios";
+import axios from "axios";
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
@@ -22,14 +22,21 @@ class Main extends Component {
     };
   }
 
-  handleChange(e) {
-    let subst =
-      this.state.blobURL.length > 0 && this.state.inputtext.length > 3;
-    this.setState({
-      inputtext: e.target.value,
-      submitstate: subst,
+  componentDidMount() {
+    axios.get("http://localhost:3000/api/sentence/get").then((response) => {
+      let data = response.data;
+      console.log(data);
+      this.setState({ sentence: data.sentence });
     });
   }
+
+  // handleChange(e) {
+  //   let subst = this.state.blobURL.length > 0;
+  //   this.setState({
+  //     inputtext: e.target.value,
+  //     submitstate: subst,
+  //   });
+  // }
 
   setInputText = (enteredtext) => {
     this.setState({
@@ -119,18 +126,20 @@ class Main extends Component {
               </div>
               <div>
                 <div className={styles.inputtextfielddiv}>
-                  <label>Please Enter Correct Text of what you spoke :</label>
+                  <label>Please Speak this sentence :</label>
                   <br />
-                  <textarea
+                  <p>{this.state.sentence}</p>
+                  <br/>
+                  {/* <textarea
                     className={styles.inputtextfield}
                     rows="4"
                     cols="50"
-                    name={this.state.inputtext}
+                    name={this.state.senten}
                     form="inform"
                     onChange={(e) => this.handleChange(e)}
-                  ></textarea>
+                  ></textarea> */}
                   <div className={styles.submitbuttndiv}>
-                    {this.state.submitstate && (
+                    {/* {this.state.submitstate && (
                       <button
                         className={styles.submitbuttnstyle}
                         onClick={this.onSubmit}
@@ -138,7 +147,14 @@ class Main extends Component {
                       >
                         submit
                       </button>
-                    )}
+                    )} */}
+                    <button
+                        className={styles.submitbuttnstyle}
+                        onClick={this.onSubmit}
+                        disabled={!this.state.submitstate}
+                      >
+                        submit
+                      </button>
                   </div>
                 </div>
               </div>
