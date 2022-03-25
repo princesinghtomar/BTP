@@ -1,13 +1,9 @@
-const express = require("express"),
-  router = express.Router(),
-  jwt = require("jsonwebtoken"),
-  jwtdecode = require("jwt-decode"),
-  auth = require("../middleware/auth");
-
-(Au_dio = require("../models/audio")), (config = require("../config"));
+const express = require("express");
+const router = express.Router();
+Au_dio = require("../models/audio");
 
 
-router.post('/audio_response', (req,res) => {
+router.get('/audio_response', (req,res) => {
     let newAudio = new Au_dio();
 
     newAudio.newUser.created_at = new Date();

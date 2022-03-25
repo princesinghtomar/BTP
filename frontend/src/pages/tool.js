@@ -16,24 +16,32 @@ class Main extends Component {
       blobURL: "",
       isBlocked: false,
       submitstate: false,
-      inputtext: "",
+      sentence: "",
       outtext: "Output Returned by the Algorithm is displayed here",
       feedback: "Feedback Returned by the Algorithm is displayed here",
     };
   }
 
+  // componentDidMount() {
+  //   axios.get("/api/getSentences").then((response) => {
+  //     data = await response.data;
+  //     console.log(data);
+  //     this.setState({ sentence: data });
+  //   });
+  // }
+
   handleChange(e) {
     let subst =
-      this.state.blobURL.length > 0 && this.state.inputtext.length > 3;
+      this.state.blobURL.length > 0 && this.state.sentence.length > 3;
     this.setState({
-      inputtext: e.target.value,
+      sentence: e.target.value,
       submitstate: subst,
     });
   }
 
-  setInputText = (enteredtext) => {
+  setsentence = (enteredtext) => {
     this.setState({
-      inputtext: enteredtext,
+      sentence: enteredtext,
     });
   };
 
@@ -62,7 +70,7 @@ class Main extends Component {
       .catch((e) => console.log(e));
   };
 
-  async onSubmit(){
+  async onSubmit() {
     console.log("submitted");
     // do this later
     // try {
@@ -70,7 +78,7 @@ class Main extends Component {
     //     method: "POST",
     //     url: `http://localhost:3000/api/audios`,
     //     data: {
-    //       inputtext: this.state.inputtext,
+    //       sentence: this.state.sentence,
     //       audioURL: this.state.blobURL,
     //       audioData: require(this.state.blobURL),
     //     },
@@ -91,7 +99,7 @@ class Main extends Component {
     //   alert(e.message);
     //   return;
     // }
-  };
+  }
 
   render() {
     return (
@@ -118,14 +126,14 @@ class Main extends Component {
                 <br />
               </div>
               <div>
-                <div className={styles.inputtextfielddiv}>
+                <div className={styles.sentencefielddiv}>
                   <label>Please Enter Correct Text of what you spoke :</label>
                   <br />
                   <textarea
-                    className={styles.inputtextfield}
+                    className={styles.sentencefield}
                     rows="4"
                     cols="50"
-                    name={this.state.inputtext}
+                    name={this.state.sentence}
                     form="inform"
                     onChange={(e) => this.handleChange(e)}
                   ></textarea>
