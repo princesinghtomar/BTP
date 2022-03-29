@@ -20,11 +20,11 @@ def register(req):
         data["password"] = make_password(data["password"])
         data["created_at"] = datetime.now()
         data["updated_at"] = datetime.now()
-        data["last_login"] = None
+        data["last_login"] = datetime.now()
         user = UserSerializer(data=data)
         if user.is_valid():
             user.save()
-            return JsonResponse({"message:" "User Added Successfully"})
+            return JsonResponse({"message": "User Added Successfully"})
         else:
             return JsonResponse({"message": "Invalid information"}, status=401)
 
@@ -64,7 +64,7 @@ def whoami(req):
             token = req.headers["X-Access-Token"].encode("utf-8")
         elif "token" in req.COOKIES:
             token = req.COOKIES["token"].encode("utf-8")
-        if token is not None:
+        if token is not None and token != b'undefined':
             data = jwt.decode(token, settings.JWT_SECRET_KEY, algorithms=["HS256"])
             return JsonResponse({"success": True, 
                                 "message": "Successfully got email",
