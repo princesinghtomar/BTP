@@ -6,6 +6,7 @@ import UserContext from "../contexts/User/UserContext";
 import Axios from "axios";
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
+const { innerWidth: width, innerHeight: height } = window; 
 
 class Main extends Component {
   constructor(props) {
@@ -126,13 +127,13 @@ class Main extends Component {
                 <br />
               </div>
               <div>
-                <div className={styles.sentencefielddiv}>
+                <div className={styles.inputtextfielddiv}>
                   <label>Please Enter Correct Text of what you spoke :</label>
                   <br />
                   <textarea
                     className={styles.sentencefield}
                     rows="4"
-                    cols="50"
+                    cols={width / 14}
                     name={this.state.sentence}
                     form="inform"
                     onChange={(e) => this.handleChange(e)}
