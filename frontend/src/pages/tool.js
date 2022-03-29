@@ -3,7 +3,7 @@ import "./navbar.css";
 import styles from "./tool.module.css";
 import MicRecorder from "mic-recorder-to-mp3";
 import UserContext from "../contexts/User/UserContext";
-import Axios from "axios";
+import axios from "axios";
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
@@ -137,7 +137,7 @@ class Main extends Component {
                     onChange={(e) => this.handleChange(e)}
                   ></textarea>
                   <div className={styles.submitbuttndiv}>
-                    {this.state.submitstate && (
+                    {/* {this.state.submitstate && (
                       <button
                         className={styles.submitbuttnstyle}
                         onClick={this.onSubmit}
@@ -145,7 +145,14 @@ class Main extends Component {
                       >
                         submit
                       </button>
-                    )}
+                    )} */}
+                    <button
+                        className={styles.submitbuttnstyle}
+                        onClick={this.onSubmit}
+                        disabled={!this.state.submitstate}
+                      >
+                        submit
+                      </button>
                   </div>
                 </div>
               </div>
