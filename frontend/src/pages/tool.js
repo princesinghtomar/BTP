@@ -31,8 +31,7 @@ class Main extends Component {
   // }
 
   handleChange(e) {
-    let subst =
-      this.state.blobURL.length > 0 && this.state.sentence.length > 3;
+    let subst = this.state.blobURL.length > 0 && this.state.sentence.length > 3;
     this.setState({
       sentence: e.target.value,
       submitstate: subst,
