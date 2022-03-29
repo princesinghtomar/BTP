@@ -70,3 +70,11 @@ def whoami(req):
                                 "message": "Successfully got email",
                                 "result": data["name"]})
         return JsonResponse({"message": "You are not logged in"}, status=401)
+
+
+def getAudio(req):
+    if req.method == "POST":
+        data = JSONParser.parse(req)
+        print(data)
+        # data recieved and now can be sent to the model (local or in another server based on choice)
+        return JsonResponse({"message": "Audio recieved"})
