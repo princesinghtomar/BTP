@@ -13,7 +13,7 @@ class About extends Component {
             <div>
               <div id="navbar">
                 <a href="/">Home</a>
-                <a class="active">About</a>
+                <a className="active">About</a>
                 {!context.name && <a href="/#/Login">LogIn</a>}
                 {!context.name && <a href="/#/register">Register</a>}
                 {context.name && (

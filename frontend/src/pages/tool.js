@@ -3,10 +3,10 @@ import "./navbar.css";
 import styles from "./tool.module.css";
 import MicRecorder from "mic-recorder-to-mp3";
 import UserContext from "../contexts/User/UserContext";
-import Axios from "axios";
+import axios from "axios";
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
-const { innerWidth: width, innerHeight: height } = window; 
+// const { innerWidth: width, innerHeight: height } = window;
 
 class Main extends Component {
   constructor(props) {
@@ -21,22 +21,15 @@ class Main extends Component {
       outtext: "Output Returned by the Algorithm is displayed here",
       feedback: "Feedback Returned by the Algorithm is displayed here",
     };
+    this.onSubmit = this.onSubmit.bind(this);
+    this.convertBlobToBase64 = this.convertBlobToBase64.bind(this)
   }
 
-  // componentDidMount() {
-  //   axios.get("/api/getSentences").then((response) => {
-  //     data = await response.data;
-  //     console.log(data);
-  //     this.setState({ sentence: data });
-  //   });
-  // }
-
-  handleChange(e) {
-    let subst =
-      this.state.blobURL.length > 0 && this.state.sentence.length > 3;
-    this.setState({
-      sentence: e.target.value,
-      submitstate: subst,
+  componentDidMount() {
+    axios.get("http://localhost:3000/api/sentence/get").then((response) => {
+      console.log(response.data);
+      this.setState({ sentence: response.data.sentence });
+      console.log(this.state.sentence);
     });
   }
 
@@ -66,40 +59,56 @@ class Main extends Component {
       .getMp3()
       .then(([buffer, blob]) => {
         const blobURL = URL.createObjectURL(blob);
-        this.setState({ blobURL, isRecording: false, micstatus: false });
+        this.setState({
+          blobURL,
+          isRecording: false,
+          micstatus: false,
+          submitstate: true,
+        });
       })
       .catch((e) => console.log(e));
   };
 
+  convertBlobToBase64 = (blob) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.readAsDataURL(blob);
+    });
+
   async onSubmit() {
-    console.log("submitted");
-    // do this later
-    // try {
-    //   const response = await Axios({
-    //     method: "POST",
-    //     url: `http://localhost:3000/api/audios`,
-    //     data: {
-    //       sentence: this.state.sentence,
-    //       audioURL: this.state.blobURL,
-    //       audioData: require(this.state.blobURL),
-    //     },
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     withCredentials: true,
-    //   });
-    //   if (response.status === 200) {
-    //     console.log(response);
-    //     console.log("Data is sent successfully");
-    //   } else {
-    //     alert(
-    //       "Something has gone wrong. Please contact admin or refresh and try again."
-    //     );
-    //   }
-    // } catch (e) {
-    //   alert(e.message);
-    //   return;
-    // }
+    const bdata = await fetch(this.state.blobURL).then((r) => r.blob());
+    const base64String = await this.convertBlobToBase64(bdata);
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `http://localhost:3000/api/user/audio`,
+        data: {
+          sentence: this.state.sentence,
+          audioURL: this.state.blobURL,
+          audioData: base64String,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        alert(response.data.message);
+        console.log(response);
+        console.log("Data is sent successfully");
+      } else {
+        alert(
+          "Something has gone wrong. Please contact admin or refresh and try again."
+        );
+      }
+    } catch (e) {
+      alert(e.message);
+      return;
+    }
   }
 
   render() {
@@ -114,7 +123,7 @@ class Main extends Component {
                 <a href="/" onClick={() => context.handleLogout()}>
                   Logout
                 </a>
-                <a class="active">Tool</a>
+                <a className="active">Tool</a>
                 {<a href="/#/Contact">Contact</a>}
               </div>
               <div>
@@ -128,16 +137,9 @@ class Main extends Component {
               </div>
               <div>
                 <div className={styles.inputtextfielddiv}>
-                  <label>Please Enter Correct Text of what you spoke :</label>
+                  <label>Please speak the quoted sentence :</label>
                   <br />
-                  <textarea
-                    className={styles.sentencefield}
-                    rows="4"
-                    cols={width / 14}
-                    name={this.state.sentence}
-                    form="inform"
-                    onChange={(e) => this.handleChange(e)}
-                  ></textarea>
+                  <h6>"{this.state.sentence}"</h6>
                   <div className={styles.submitbuttndiv}>
                     {this.state.submitstate && (
                       <button

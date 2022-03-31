@@ -23,7 +23,7 @@ class About extends Component {
                   </a>
                 )}
                 {context.name && <a href="/#/Tool">Tool</a>}
-                {<a class="active">Contact</a>}
+                {<a className="active">Contact</a>}
               </div>
               <div>
                 <br />

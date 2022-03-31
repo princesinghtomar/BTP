@@ -20,7 +20,7 @@ def register(req):
         data["password"] = make_password(data["password"])
         data["created_at"] = datetime.now()
         data["updated_at"] = datetime.now()
-        data["last_login"] = datetime.now()
+        data["last_login"] = None
         user = UserSerializer(data=data)
         if user.is_valid():
             user.save()
@@ -48,7 +48,7 @@ def login(req):
                 settings.JWT_SECRET_KEY,
                 algorithm="HS256")
                 response = JsonResponse({"message": "Login Successful"})
-                response.set_cookie('token', token.decode())
+                response.set_cookie('token', token)
                 return response
             else:
                 return JsonResponse({"message": "Invalid password"}, status=401)
@@ -72,9 +72,12 @@ def whoami(req):
         return JsonResponse({"message": "You are not logged in"}, status=401)
 
 
+@csrf_exempt
 def getAudio(req):
+    if req.method == "GET":
+        return JsonResponse({"message": "helllo"})
     if req.method == "POST":
-        data = JSONParser.parse(req)
+        data = JSONParser().parse(req)
         print(data)
         # data recieved and now can be sent to the model (local or in another server based on choice)
         return JsonResponse({"message": "Audio recieved"})

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import UserContext from "../contexts/User/UserContext";
 import styles from "./upload.module.css";
+import axios from "axios";
 
 const { innerWidth: width, innerHeight: height } = window;
 
@@ -12,6 +13,7 @@ class About extends Component {
       submitstate: false,
       selectedFile: null,
     };
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   handleChange(e) {
@@ -30,8 +32,23 @@ class About extends Component {
       this.state.selectedFile.name
     );
     console.log(this.state.selectedFile);
-    // axios.post("api/uploadfile", formData);
+    axios.post("http://localhost:3000/api/sentence/add", formData)
+      .then (res => {
+        console.log(res);
+      })
   };
+
+  onSubmit = () => {
+    axios.post("http://localhost:3000/api/sentence/add", {"sentence": this.state.sentence})
+      .then (res => {
+        this.setState({sentence: ''});
+        console.log(res);
+        alert(res.data.message);
+      })
+      .catch( err => {
+        alert(err.message);
+      })
+  }
 
   onFileChange = (e) => {
     this.setState({ selectedFile: e.target.files[0] });

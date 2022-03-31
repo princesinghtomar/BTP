@@ -10,7 +10,7 @@ class About extends Component {
           {(context) => (
             <div>
               <div id="navbar">
-                <a class="active">Home</a>
+                <a className="active">Home</a>
                 {<a href="/#/About">About</a>}
                 {!context.name && <a href="/#/Login">LogIn</a>}
                 {!context.name && <a href="/#/register">Register</a>}
