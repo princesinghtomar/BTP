@@ -9,6 +9,7 @@ from api.models import Users
 from api.serializers import UserSerializer
 from datetime import datetime, timedelta
 import jwt
+import base64
 
 
 # Create your views here.
@@ -74,10 +75,11 @@ def whoami(req):
 
 @csrf_exempt
 def getAudio(req):
-    if req.method == "GET":
-        return JsonResponse({"message": "helllo"})
     if req.method == "POST":
         data = JSONParser().parse(req)
-        print(data)
+        audioData = base64.b64decode(data["audioData"][22:].encode('ascii'))
+        print(audioData)
+        with open("test.mp3", "wb") as f:
+            f.write(audioData)
         # data recieved and now can be sent to the model (local or in another server based on choice)
         return JsonResponse({"message": "Audio recieved"})
