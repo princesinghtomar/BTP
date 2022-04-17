@@ -98,6 +98,10 @@ class Main extends Component {
       });
       if (response.status === 200) {
         alert(response.data.message);
+        this.setState({
+          outtext: response.data.missed_words.join(),
+          feedback: "The above word(s) were missed."
+        })
         console.log(response);
         console.log("Data is sent successfully");
       } else {

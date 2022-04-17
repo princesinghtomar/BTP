@@ -10,6 +10,7 @@ from api.serializers import UserSerializer
 from datetime import datetime, timedelta
 import jwt
 import base64
+import random
 
 
 # Create your views here.
@@ -78,8 +79,10 @@ def getAudio(req):
     if req.method == "POST":
         data = JSONParser().parse(req)
         audioData = base64.b64decode(data["audioData"][22:].encode('ascii'))
-        print(audioData)
-        with open("test.mp3", "wb") as f:
-            f.write(audioData)
+        sentence = data["sentence"].split()
+        rejected_words = []
+        for word in sentence:
+            if random.random() <= 0.37:
+                rejected_words.append(word) 
         # data recieved and now can be sent to the model (local or in another server based on choice)
-        return JsonResponse({"message": "Audio recieved"})
+        return JsonResponse({"message": "Audio recieved", "missed_words": rejected_words})

@@ -18,7 +18,6 @@ def getSentence(req):
         try:
             sentence = Sentences.objects.get(id=rand_id)
             sentence = SentenceSerializer(sentence).data
-            print(sentence)
             return JsonResponse(sentence)
         except Exception as E:
             print(E)
@@ -38,3 +37,10 @@ def addSentence(req):
             return JsonResponse({"message": "Sentence added successfully"})
         else:
             return JsonResponse({"message": "Error"}, status=401)
+
+
+@csrf_exempt
+def addSentencesFromFile(req):
+    if req.method == "POST":
+        print(req.body)
+        return JsonResponse({"message": "Being developed!"})

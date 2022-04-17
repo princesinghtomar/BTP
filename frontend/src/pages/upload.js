@@ -32,10 +32,11 @@ class About extends Component {
       this.state.selectedFile.name
     );
     console.log(this.state.selectedFile);
-    axios.post("http://localhost:3000/api/sentence/add", formData)
+    axios.post("http://localhost:3000/api/sentence/upload", formData)
       .then (res => {
         console.log(res);
       })
+      .catch(err => alert(err))
   };
 
   onSubmit = () => {
