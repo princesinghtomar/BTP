@@ -1,9 +1,14 @@
 import React, { Component } from "react";
+import  { Redirect } from 'react-router-dom';
 import "./navbar.css";
 import styles from "./tool.module.css";
 import MicRecorder from "mic-recorder-to-mp3";
 import UserContext from "../contexts/User/UserContext";
 import axios from "axios";
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 // const { innerWidth: width, innerHeight: height } = window;
@@ -26,6 +31,32 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    if (cookies.get('token') !== null && cookies.get('token') !== undefined) {
+      axios({
+        method: 'GET',
+        url: "http://localhost:3000/api/user/whoami",
+        headers: {
+          'X-ACCESS-TOKEN': cookies.get('token')
+        },
+        withCredentials: true
+      })
+        .then(response => {
+          if (response.status === 200) {
+            this.setState({
+              isLoggedIn: true,
+              name: response.data.result
+            });
+          } else {
+            this.props.history.push('/');
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
+    else {
+      this.props.history.push('/about');
+    }
     axios.get("http://localhost:3000/api/sentence/get").then((response) => {
       console.log(response.data);
       this.setState({ sentence: response.data.sentence });
@@ -97,9 +128,22 @@ class Main extends Component {
         withCredentials: true,
       });
       if (response.status === 200) {
-        alert(response.data.message);
+        let mask = response.data.mask;
+        let elements = [];
+        let words = this.state.sentence.split(" ");
+        console.log(words.length);
+        console.log(words)
+        for (let i = 0; i < words.length; i++) {
+          if (mask[i] === 0) {
+            elements.push(<span style={{ "color": "red" }}>{words[i] + " "}</span>);
+          }
+          else {
+            elements.push(<span style={{ "color": "green" }}>{words[i] + " "}</span>);
+          }
+        }
+        console.log(elements)
         this.setState({
-          outtext: response.data.missed_words.join(),
+          outtext: elements,
           feedback: "The above word(s) were missed."
         })
         console.log(response);

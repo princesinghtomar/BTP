@@ -80,9 +80,8 @@ def getAudio(req):
         data = JSONParser().parse(req)
         audioData = base64.b64decode(data["audioData"][22:].encode('ascii'))
         sentence = data["sentence"].split()
-        rejected_words = []
-        for word in sentence:
-            if random.random() <= 0.37:
-                rejected_words.append(word) 
+        mask = []
+        for _ in sentence:
+            mask.append(int(random.random() > 0.37)) 
         # data recieved and now can be sent to the model (local or in another server based on choice)
-        return JsonResponse({"message": "Audio recieved", "missed_words": rejected_words})
+        return JsonResponse({"message": "Audio recieved", "mask": mask})

@@ -35,6 +35,7 @@ class About extends Component {
     axios.post("http://localhost:3000/api/sentence/upload", formData)
       .then (res => {
         console.log(res);
+        alert("Sentences from file uploaded successfully!")
       })
       .catch(err => alert(err))
   };

@@ -17,7 +17,7 @@ class UserProvider extends Component {
     }
 
     componentDidMount() {
-        if (cookies.get('token') !== null) {
+        if (cookies.get('token') !== null || cookies.get('token') !== undefined) {
             axios({
                 method: 'GET',
                 url: "http://localhost:3000/api/user/whoami",
@@ -39,6 +39,7 @@ class UserProvider extends Component {
                 })
                 .catch(error => {
                     console.log(error);
+                    this.props.history.push('/');
                 })
         }
     }

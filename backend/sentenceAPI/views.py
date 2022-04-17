@@ -42,5 +42,21 @@ def addSentence(req):
 @csrf_exempt
 def addSentencesFromFile(req):
     if req.method == "POST":
-        print(req.body)
+        data = req.body
+        data = data.decode("utf-8").split("\n")
+        data = list(filter(lambda x: len(x) > 0, list(map(lambda x: x.strip(), data))))
+        content = data[3:-1]
+        total_items = Sentences.objects.all().count()
+        for sentence in content:
+            obj = {
+                "sentence": sentence,
+                "created_at": datetime.now(),
+                "id": total_items
+            }
+            total_items += 1
+            new_sentence = SentenceSerializer(data=obj)
+            if new_sentence.is_valid():
+                new_sentence.save()
+            else:
+                print("dont know some random error")
         return JsonResponse({"message": "Being developed!"})
