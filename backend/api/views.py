@@ -82,6 +82,6 @@ def getAudio(req):
         sentence = data["sentence"].split()
         mask = []
         for _ in sentence:
-            mask.append(int(random.random() > 0.37)) 
+            mask.append(int(random.random() <= 0.7))
         # data recieved and now can be sent to the model (local or in another server based on choice)
         return JsonResponse({"message": "Audio recieved", "mask": mask})
