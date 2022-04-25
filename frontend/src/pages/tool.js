@@ -1,17 +1,11 @@
 import React, { Component } from "react";
-import  { Redirect } from 'react-router-dom';
 import "./navbar.css";
 import styles from "./tool.module.css";
 import MicRecorder from "mic-recorder-to-mp3";
 import UserContext from "../contexts/User/UserContext";
 import axios from "axios";
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
-
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
-// const { innerWidth: width, innerHeight: height } = window;
 
 class Main extends Component {
   constructor(props) {
@@ -20,6 +14,7 @@ class Main extends Component {
       micstatus: false,
       isRecording: false,
       blobURL: "",
+      preblobURL: true,
       isBlocked: false,
       submitstate: false,
       sentence: "",
@@ -27,36 +22,10 @@ class Main extends Component {
       feedback: "Feedback Returned by the Algorithm is displayed here",
     };
     this.onSubmit = this.onSubmit.bind(this);
-    this.convertBlobToBase64 = this.convertBlobToBase64.bind(this)
+    this.convertBlobToBase64 = this.convertBlobToBase64.bind(this);
   }
 
   componentDidMount() {
-    if (cookies.get('token') !== null && cookies.get('token') !== undefined) {
-      axios({
-        method: 'GET',
-        url: "http://localhost:3000/api/user/whoami",
-        headers: {
-          'X-ACCESS-TOKEN': cookies.get('token')
-        },
-        withCredentials: true
-      })
-        .then(response => {
-          if (response.status === 200) {
-            this.setState({
-              isLoggedIn: true,
-              name: response.data.result
-            });
-          } else {
-            this.props.history.push('/');
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        })
-    }
-    else {
-      this.props.history.push('/about');
-    }
     axios.get("http://localhost:3000/api/sentence/get").then((response) => {
       console.log(response.data);
       this.setState({ sentence: response.data.sentence });
@@ -95,6 +64,7 @@ class Main extends Component {
           isRecording: false,
           micstatus: false,
           submitstate: true,
+          preblobURL: true,
         });
       })
       .catch((e) => console.log(e));
@@ -144,7 +114,8 @@ class Main extends Component {
         console.log(elements)
         this.setState({
           outtext: elements,
-          feedback: "The above word(s) were missed."
+          feedback: "The above word(s) were missed.",
+          preblobURL: false,
         })
         console.log(response);
         console.log("Data is sent successfully");
@@ -193,9 +164,13 @@ class Main extends Component {
                       <button
                         className={styles.submitbuttnstyle}
                         onClick={this.onSubmit}
-                        disabled={!this.state.submitstate}
+                        disabled={!this.state.preblobURL}
                       >
-                        submit
+                        {this.state.preblobURL ? (
+                          "Submit"
+                        ) : (
+                          <strike>Submit</strike>
+                        )}
                       </button>
                     )}
                   </div>
