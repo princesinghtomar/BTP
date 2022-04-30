@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import UserContext from "../contexts/User/UserContext";
 import styles from "./contact.module.css";
 
-class About extends Component {
+class Contact extends Component {
   render() {
     return (
       <>
@@ -102,4 +102,4 @@ class About extends Component {
   }
 }
 
-export default About;
+export default Contact;
