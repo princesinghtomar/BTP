@@ -135,7 +135,7 @@ class Main extends Component {
       <>
         <UserContext.Consumer>
           {(context) => (
-            <div>
+            <div className={styles.maindiv}>
               <div id="navbar">
                 {<a href="/">Home</a>}
                 {<a href="/#/About">About</a>}
@@ -217,6 +217,9 @@ class Main extends Component {
               <div>
                 <div className={styles.outdivision}>{this.state.feedback}</div>
               </div>
+              <br />
+              <br />
+              <br />
               <br />
               <hr className={styles.hr} />
               <br />

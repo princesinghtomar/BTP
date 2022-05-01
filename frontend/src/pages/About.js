@@ -8,7 +8,7 @@ class About extends Component {
       <>
         <UserContext.Consumer>
           {(context) => (
-            <div>
+            <div className={styles.maindiv}>
               <div id="navbar">
                 <a className="active">Home</a>
                 {<a href="/#/About">About</a>}
@@ -32,6 +32,14 @@ class About extends Component {
                 </h1>
                 <hr className={styles.hr} />
                 <br />
+                <br />
+                <div className={styles.gifdiv}>
+                  <center>
+                    <p>
+                      <img src="./hello.gif" className={styles.img} />
+                    </p>
+                  </center>
+                </div>
                 <br />
                 <div className={styles.datadiv}>
                   <h3>Overview of the Project</h3>
@@ -131,6 +139,10 @@ class About extends Component {
                   </h5>
                 </div>
               </div>
+              <br />
+              <br />
+              <hr className={styles.hr} />
+              <br />
               <br />
               <br />
             </div>

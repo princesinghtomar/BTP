@@ -7,8 +7,16 @@
 
 /* Division */
 
+.maindiv {
+  background-image: url("/temp.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 
+}
+
 .iiitimagdiv {
   text-align: center;
+  background-color: white;
   margin: auto;
 }
 

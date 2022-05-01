@@ -7,21 +7,29 @@
 
 /* Division */
 
-.datadiv {
-  align-self: center;
-  text-align: left;
-  width: 85%;
-  border: 0.2rem solid green;
-  padding: 2rem;
-  margin: auto;
+.maindiv {
+  background-image: url("/temp.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 
 }
 
 .datadiv {
   align-self: center;
   text-align: left;
-  display: block;
   width: 85%;
   border: 0.2rem solid green;
+  background-color: white;
+  padding: 2rem;
+  margin: auto;
+}
+
+.gifdiv {
+  align-self: center;
+  text-align: left;
+  display: block;
+  width: 85%;
+  /* border: 0.2rem solid green; */
   padding: 2rem;
   margin: auto;
 }
@@ -99,4 +107,9 @@
 .img {
   width: 20%;
   height: auto;
+}
+
+.img_full {
+  width: 100%;
+  height: 30rem;
 }

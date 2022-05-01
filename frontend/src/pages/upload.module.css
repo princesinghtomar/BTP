@@ -5,6 +5,13 @@
   box-sizing: border-box;
 }
 
+.maindiv {
+  background-image: url("/temp.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 
+}
+
 .inputtextfielddiv {
   align-self: center;
   text-align: left;

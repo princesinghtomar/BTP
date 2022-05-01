@@ -37,7 +37,7 @@ class About extends Component {
       <>
         <UserContext.Consumer>
           {(context) => (
-            <div>
+            <div className={styles.maindiv}>
               <div id="navbar">
                 <a href="/">Home</a>
                 <a className="active">About</a>

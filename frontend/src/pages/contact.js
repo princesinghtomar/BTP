@@ -8,7 +8,7 @@ class Contact extends Component {
       <>
         <UserContext.Consumer>
           {(context) => (
-            <div>
+            <div className={styles.maindiv}>
               <div id="navbar">
                 <a href="/">Home</a>
                 {<a href="/#/About">About</a>}
@@ -94,6 +94,18 @@ class Contact extends Component {
                   </tbody>
                 </table>
               </div>
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
             </div>
           )}
         </UserContext.Consumer>
