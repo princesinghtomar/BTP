@@ -18,8 +18,8 @@
 2. enter your backend url in actions/backendUrl.js or add an environment variable named REACT_APP_DEV_URL 
 3. npm start
 #### Backend
-1. cd backend, create a virtualenv, activate it and install -r requirements/local.txt
-2. python manage.py makemigrations custom_user , python manage.py migrate , createsuperuser
-3. python manage.py runserver
+1. cd backend, create a virtualenv, activate it and pip (or) pip3 install -r requirements.txt
+2. To create the database for the application: python manage.py makemigrations and then python manage.py migrate
+3. To run the server: python manage.py runserver 3000
 
 
