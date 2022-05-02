@@ -7,6 +7,25 @@
 
 /* Division */
 
+.datadiv {
+  align-self: center;
+  text-align: left;
+  width: 85%;
+  border: 0.2rem solid green;
+  padding: 2rem;
+  margin: auto;
+}
+
+.datadiv {
+  align-self: center;
+  text-align: left;
+  display: block;
+  width: 85%;
+  border: 0.2rem solid green;
+  padding: 2rem;
+  margin: auto;
+}
+
 .iiitimagdiv {
   text-align: center;
   margin: auto;
@@ -75,4 +94,9 @@
 
 .texta {
     color: #3f7963;
+}
+
+.img {
+  width: 20%;
+  height: auto;
 }

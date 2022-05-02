@@ -2,9 +2,36 @@ import React, { Component } from "react";
 import ReactMarkdown from "react-markdown";
 import UserContext from "../contexts/User/UserContext";
 import styles from "./tabout.module.css";
-import axios from 'axios';
+// import { Markup } from "react-render-markup";
+import remarkGfm from "remark-gfm";
+import marked from "marked";
 
 class About extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      markdown: "",
+    };
+  }
+
+  componentDidMount() {
+    const readmePath = require("./readme.md");
+    fetch(readmePath)
+      .then((response) => {
+        return response.text();
+      })
+      .then((text) => {
+        // console.log(text)
+        this.setState({
+          markdown: text,
+        });
+        console.log(this.state.markdown)
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
   render() {
     return (
       <>
@@ -18,8 +45,8 @@ class About extends Component {
                 {!context.name && <a href="/#/register">Register</a>}
                 {context.name && (
                   <a
-                  href="javascript:window.location.reload(true)"
-                  onClick={() => context.handleLogout()}
+                    href="javascript:window.location.reload(true)"
+                    onClick={() => context.handleLogout()}
                   >
                     Logout
                   </a>
@@ -37,12 +64,14 @@ class About extends Component {
                 <br />
               </div>
               <div className={styles.readmediv}>
-                <ReactMarkdown>
-                  #### Hello, *world*!
-                  {/* Use this to add images! */}
-                  {/* ![alt text](https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg) */}
-                </ReactMarkdown>
+                <center>
+                <ReactMarkdown
+                  escapeHtml={false}
+                  children={this.state.markdown}
+                  remarkPlugins={[remarkGfm]}
+                /></center>
               </div>
+              <br />
             </div>
           )}
         </UserContext.Consumer>

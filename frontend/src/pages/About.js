@@ -16,8 +16,8 @@ class About extends Component {
                 {!context.name && <a href="/#/register">Register</a>}
                 {context.name && (
                   <a
-                  href="javascript:window.location.reload(true)"
-                  onClick={() => context.handleLogout()}
+                    href="javascript:window.location.reload(true)"
+                    onClick={() => context.handleLogout()}
                   >
                     Logout
                   </a>
@@ -33,7 +33,106 @@ class About extends Component {
                 <hr className={styles.hr} />
                 <br />
                 <br />
+                <div className={styles.datadiv}>
+                  <h3>Overview of the Project</h3>
+                  <br />
+                  <center>
+                    <p>
+                      <img src="./cpu.png" className={styles.img} />
+                      <img
+                        src="./voice-recognition.png"
+                        className={styles.img}
+                      />
+                    </p>
+                  </center>
+                  <br />
+                  <br />
+                  <h5>
+                    <center>
+                      While speaking, most of the time, parts of the sentence
+                      (words or multiple words) are less emphasized or sometimes
+                      missed to utter. This causes a loss of intelligibility in
+                      the sentence. This project aims to develop an interface
+                      that detects such intelligibility loss due to missing the
+                      utterance of words. With this interface, one can rectify
+                      the missing words and can improve better communication
+                      skills.
+                    </center>
+                  </h5>
+                </div>
+                <br />
+                <div className={styles.datadiv}>
+                  <h3>Objectives</h3>
+                  <table className={styles.table_name}>
+                    <tbody>
+                      <tr className={styles.tr}>
+                        <td className={styles.td}>
+                          <h4>
+                            <g className={styles.listbullets}>&diams;</g>{" "}
+                          </h4>
+                        </td>
+                        <td className={styles.td}>
+                          <h5>
+                            Develop an interactive speech interface for missed
+                            word detection
+                          </h5>
+                        </td>
+                      </tr>
+                      <tr className={styles.tr}>
+                        <td className={styles.td}>
+                          <h4>
+                            <g className={styles.listbullets}>&diams;</g>{" "}
+                          </h4>
+                        </td>
+                        <td className={styles.td}>
+                          <h5>
+                            Implement an online mode of missed word detection
+                            using ASR.
+                          </h5>
+                        </td>
+                      </tr>
+                      <tr className={styles.tr}>
+                        <td className={styles.td}>
+                          <h4>
+                            <g className={styles.listbullets}>&diams;</g>{" "}
+                          </h4>
+                        </td>
+                        <td className={styles.td}>
+                          <h5>
+                            Provide feedback on the words that are missed and
+                            the loss of intelligibility.
+                          </h5>
+                        </td>
+                      </tr>
+                      <tr className={styles.tr}>
+                        <td className={styles.td}>
+                          <h4>
+                            <g className={styles.listbullets}>&diams;</g>{" "}
+                          </h4>
+                        </td>
+                        <td className={styles.td}>
+                          <h5>
+                            Ask to utter the sentence without any word missing
+                          </h5>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <br />
+                <div className={styles.datadiv}>
+                  <h3>Important Links</h3>
+                  <br />
+                  <h5>
+                    <a href="https://github.com/princesinghtomar/btp">
+                      {" "}
+                      Github{" "}
+                    </a>
+                  </h5>
+                </div>
               </div>
+              <br />
+              <br />
             </div>
           )}
         </UserContext.Consumer>
